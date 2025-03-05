@@ -1,0 +1,160 @@
+/**
+*    Coded by :  Harsh vardhan 
+**/
+
+#include<bits/stdc++.h>
+using namespace std;
+#pragma GCC optimize("Ofast")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,fma")
+#pragma GCC optimize("O3,unroll-loops")
+#define fastio()                            ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
+#define ll                                  long long int
+#define forn(i,s,e)                         for(ll i = s; i < e; i++)
+#define rforn(i,s,e)                        for(ll i = s; i >= e; i--)
+#define ln                                  "\n"
+#define mp                                  make_pair
+#define pb                                  push_back
+#define ub                                  upper_bound
+#define lb                                  lower_bound
+#define fi                                  first
+#define se                                  second
+#define no                                  cout<<"NO"<<"\n"
+#define yes                                 cout<<"YES"<<"\n"
+#define all(x)                              (x).begin(), (x).end()
+#define sz(x)                               ((ll)(x).size())
+#define p64                                 pair<ll,ll>
+#define v64                                 vector<ll>
+#define vv64                                vector<vector<ll>>
+#define vp64                                vector<p64>
+#define mp64                                map<ll,ll>
+#define mc64                                map<char,ll>
+#define ms64                                map<string,ll>
+
+
+#ifndef ONLINE_JUDGE
+    #define debug()                        cerr<<"[Check]"<<endl;
+    #define debugln()                      cerr<<endl;
+    #define debug1(a)                      cerr<<#a<<"="<<a<<endl;
+    #define debug2(a,b)                    cerr<<#a<<"="<<a<<" "<<#b<<"="<<b<<endl;
+    #define debug3(a,b,c)                  cerr<<#a<<"="<<a<<" "<<#b<<"="<<b<<" "<<#c<<"="<<c<<endl;
+    #define debug4(a,b,c,d)                cerr<<#a<<"="<<a<<" "<<#b<<"="<<b<<" "<<#c<<"="<<c<<" "<<#d<<"="<<d<<endl;
+    #define debug5(a,b,c,d,e)              cerr<<#a<<"="<<a<<" "<<#b<<"="<<b<<" "<<#c<<"="<<c<<" "<<#d<<"="<<d<<" "<<#e<<"="<<e<<endl;    
+    #define debug_arr1(a,n)                cerr<<#a<<" = [ "; for(ll i=0; i<n; i++){cerr<<a[i]<<" ";}cerr<<"]"<<endl;
+    #define debug_v1(v)                    cerr<<#v<<" = [ "; for(ll i=0; i<v.size(); i++){cerr<<v[i]<<" ";}cerr<<"]"<<endl;
+    #define debug_arr2(arr,row,column)     cerr<<#arr<<"="<<endl; for(ll i=0; i<row; i++){cerr<<"[ ";for(ll j=0; j<column; j++){cerr<<arr[i][j]<<" ";}cerr<<"]"<<endl;}cerr<<endl;
+    #define debug_v2(v)                    cerr<<#v<<"="<<endl; for(ll i=0; i<v.size(); i++){cerr<<"[ ";for(ll j=0; j<v[i].size(); j++){cerr<<v[i][j]<<" ";}cerr<<"]"<<endl;}cerr<<endl;
+    #define debug_map(mm)                  cerr<<#mm<<"="<<endl; for(auto it=mm.begin(); it!=mm.end(); it++){cerr<<"{"<<it->first<<" "<<it->second<<"}"<<endl;}cerr<<endl;
+    #define debug_set(s)                   cerr<<#s<<" = [ "; for(auto it=s.begin(); it!=s.end(); it++){cerr<<*it<<" ";}cerr<<"]"<<endl;
+    #define debug_vect_of_pair(v)          cerr<<#v<<"="<<endl; for(ll i=0; i<v.size(); i++){cerr<<"{"<<v[i].first<<" "<<v[i].second<<"}"<<endl;}cerr<<endl;
+    #define debug_adjacency_list(arr,n)    cerr<<#arr<<"="<<endl; for(ll i=1; i<n+1; i++){cerr<<"ind="<<i<<"-> ";for(ll j=0; j<arr[i].size(); j++){cerr<<arr[i][j]<<" ";}cerr<<endl;}
+#else
+    #define debug()
+    #define debugln()
+    #define debug1(a)
+    #define debug2(a,b)
+    #define debug3(a,b,c)
+    #define debug4(a,b,c,d)
+    #define debug5(a,b,c,d,e)    
+    #define debug_arr1(a,n)
+    #define debug_arr2(arr,row,column)
+    #define debug_v1(v)
+    #define debug_v2(v)
+    #define debug_map(mm)
+    #define debug_set(s)
+    #define debug_vect_of_pair(v)
+    #define debug_adjacency_list(arr,n)
+#endif
+
+
+
+
+ll dfs(ll x,ll y,ll k,ll m,ll xf,ll yf){
+    if(k<0) return 0;
+
+    ll dfs1 = 0;
+    if(x+xf <= xf && k-1>=0){
+        dfs1 = dfs(x+xf,y,k-1,m,xf,yf);
+    }
+
+    ll dfs2 = 0;
+    if(x-xf >= 0 && k-1>=0){
+        dfs2 = dfs(x-xf,y,k-1,m,xf,yf);
+    }
+
+    ll dfs3 = 0;
+    if(y+yf<=yf && k-1>=0){
+        dfs3 = dfs(x,y+yf,k-1,m,xf,yf);
+    }
+
+    ll dfs4 = 0;
+    if(y-yf>=0 && k-1>=0){
+        dfs4 = dfs(x,y-yf,k-1,m,xf,yf);
+    }
+
+    ll dfs5 = dfs(max(0, x+y))
+
+    ll ans = min({abs(dfs1+dfs4-m), abs(dfs1+dfs3-m), abs(dfs2+dfs3-m), abs(dfs2+dfs4-m)});
+    return ans;
+}
+
+void harsh(){
+    ll x,y,k,m;
+    cin>>x>>y>>k>>m;
+
+    // These much of value I can measure by the given x and  y
+    ll dx[8] = {x,-x,x,-x,x,-x,0,0};
+    ll dy[8] = {0,0,y,y,-y,-y,y,-y};
+
+    priority_queue<v64, vv64, greater<v64>> pq;
+    
+    ll mx = x + y;
+    vector<vector<ll>> path(mx+1,vector<ll> (mx+1,INT_MAX));
+    pq.push({0,0,k});
+
+    //ll ans = INT_MAX;
+    while(!pq.empty()){
+        auto it = pq.top();
+        pq.pop();
+
+        ll x1 = it[0], y1 = it[1], z = it[2];
+        ll m1 = x, m2 = y, m3 = x + y;
+        // ans = min({ans, abs(m1-m), abs(m2-m), abs(m3-m)});
+
+        // cout<<x<<' '<<y<<' '<<z<<'\n';
+
+        forn(i,0,8){
+            ll xn = x1 + dx[i];
+            ll yn = y1 + dy[i];
+
+            //cout<<"Before "<<xn<<' '<<yn<<'\n';
+            xn = min(xn,x);
+            xn = max(xn,0ll);
+
+            yn = min(yn,y);
+            yn = max(yn,0ll);
+
+            //cout<<xn<<' '<<yn<<'\n';
+
+            if(z+1 <=k && path[xn][yn] > z+1) pq.push({xn,yn,z+1});
+        }
+    }
+
+    ll ans = dfs(0,0,k,m,x,y);
+    cout<<ans<<ln;
+}
+
+
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+
+    // freopen("pails.in", "r", stdin);
+    // freopen("pails.out", "w", stdout);
+
+
+    harsh();
+
+    return 0;
+}
