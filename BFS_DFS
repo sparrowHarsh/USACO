@@ -1,0 +1,57 @@
+/**
+*    Coded by :  Harsh vardhan 
+**/
+
+#include<bits/stdc++.h>
+using namespace std;
+#define pq vector<int>
+
+
+/*
+* In dfs simply we can add dfs[i-1] to dfs[i], 1 node that is both are connected
+* Now while going through bfs only one condition we can miss and that is when we will comeback to root
+* In this way we wil have maximum no of edge
+*/
+
+
+void harsh(){
+    int n;cin>>n;
+    vector<int> bfs(n),dfs(n);
+    for(int i=0;i<n;i++) cin>>bfs[i];
+
+    for(int i=0;i<n;i++) cin>>dfs[i];
+    
+    if(bfs[1] != dfs[1]){
+        cout<<-1<<'\n';
+        return;
+    }
+    int edge = (n-1) + (n-2);
+    cout<<edge<<'\n';
+    for(int i=1;i<n;i++){
+        cout<<dfs[i]<<' '<<dfs[i-1]<<'\n';
+    }
+
+    // To handle root element change just add all other node as child of a root node
+    for(int i=2;i<n;i++){
+        cout<<1<<' '<<bfs[i]<<'\n';
+    }
+}
+
+
+int main(){
+    auto start=chrono::high_resolution_clock::now();
+    #ifndef ONLINE_JUDGE
+        freopen("debug.txt", "w", stderr);
+    #endif
+
+    harsh();
+
+    auto stop=chrono::high_resolution_clock::now();
+    chrono::duration<double> diff=stop-start;
+    #ifndef ONLINE_JUDGE
+        cerr<<fixed<<setprecision(3)<<left;
+        cerr<<"[ Time taken "<<setw(3)<<diff.count()<<" Second. ]";
+    #endif
+
+    return 0;
+}
